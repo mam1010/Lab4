@@ -74,8 +74,10 @@ begin
             end if; 
             hcount <= hcounter;
             vcount <= vcounter;
+            if(hcounter="000000000") then
+                vcounter <= std_logic_vector(unsigned(vcounter) + 1);
+            end if;
             hcounter <= std_logic_vector(unsigned(hcounter) + 1);
-            vcounter <= std_logic_vector(unsigned(vcounter) + 1);
         end if;
     end process;
 

@@ -68,13 +68,11 @@ architecture structural of image_top is
     );
     end component;
 
-    component block_memory port
+    component picture port
     (
-        clk : in STD_LOGIC;
-        we : in STD_LOGIC_VECTOR(0 downto 0);
-        addr : in STD_LOGIC_VECTOR (17 downto 0);
-        din : in STD_LOGIC_VECTOR (7 downto 0);
-        dout : out STD_LOGIC_VECTOR (7 downto 0)
+        clka : IN STD_LOGIC;
+        addra : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
+        douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
     );
     end component;
         
@@ -90,7 +88,7 @@ architecture structural of image_top is
     signal vs_tmp : std_logic;
     signal hcount_tmp : std_logic_vector(9 downto 0);
     signal vcount_tmp : std_logic_vector(9 downto 0);
-    signal addr_tmp : std_logic_vector(7 downto 0);
+    signal addr_tmp : std_logic_vector(17 downto 0);
     signal pixel_tmp : std_logic_vector(7 downto 0);
     
 begin
@@ -98,12 +96,10 @@ begin
         clk_in => clk,
         clk_out => clk_tmp);
     
-    u1: block_memory port map(
-        clk => clk,
-        we => vcount_tmp(8 downto 8),
-        addr => addr_tmp,
-        din => vcount_tmp(7 downto 0),
-        dout => pixel_tmp);
+    u1: picture port map(
+        clka => clk,
+        addra => addr_tmp,
+        douta => pixel_tmp);
     
     u3: vga_ctrl port map(
         clk => clk,
